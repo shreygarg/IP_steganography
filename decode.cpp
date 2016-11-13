@@ -7,6 +7,7 @@ using namespace cv;
 using namespace std;
 char terminate_ch = '#';
 char c[1000000];
+char b[1000000];
 int poww(int a,int r)
 {
 	return (int)pow(a,r);
@@ -103,14 +104,15 @@ int main( int argc, char** argv )
 	int aa=0,bb=0,cc=0;
     uInt extracted=5;
     string tmp = decode(image,aa,bb,cc,extracted);
-    cout<<tmp.length();
-    char tmpc[1000000];
-    strcpy(tmpc,tmp.c_str());
-    decompressString(tmpc,extracted);
-    cout<< "the ret value is "<<extracted<<endl;
-    cout<<tmp<<endl;
+    for(int i=0;i<extracted;i++)
+    	b[i]=tmp[i];
+    decompressString(b,extracted);
+    printf("Compressed size is: %u\n", extracted);
     printf("Uncompressed size is: %lu\n", strlen(c));
-    printf("Uncompressed string is: %s\n", c);
-    waitKey(0);
+ //    for(int i=0;i<strlen(b);i++)
+	// {
+	// 	cout<<b[i]<<"->"<<(int)b[i]<<endl;
+	// }
+    printf("Uncompressed string is: \n%s\n", c);
 	return 0;
 }

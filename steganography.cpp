@@ -221,7 +221,7 @@ int main( int argc, char** argv )
 	printf("Uncompressed size is: %lu\n", strlen(a));
     printf("Uncompressed string is: %s\n", a);
 	uInt ret= compressString(a);
-	uInt compressedLength = strlen(b);
+	uInt compressedLength = ret;//strlen(b);
 	printf("Compressed size is: %lu\n", strlen(b));
     printf("Compressed string is: %s\n", b);
     if((compressedLength+1+3)> noofchars)
@@ -229,7 +229,12 @@ int main( int argc, char** argv )
     	printf("Given image is too small to encode the given amount of data\n");
     	return 0;
     }
-    encode(string(b),image,aa,bb,cc,ret,false);
+    string tobeencoded = "";
+    for(int i=0;i<ret;i++)
+    {
+    	tobeencoded+= b[i];
+    }
+    encode(tobeencoded,image,aa,bb,cc,ret,false);
     namedWindow( "Encoded Image", WINDOW_AUTOSIZE );
     imshow( "Encoded Image", image );
     aa=0,bb=0,cc=0;
@@ -238,7 +243,9 @@ int main( int argc, char** argv )
     image = imread("encoded.png", CV_LOAD_IMAGE_COLOR);
     string tmp = decode(image,aa,bb,cc,extracted);
     char tmpc[1000000];
-    strcpy(tmpc,tmp.c_str());
+    for(int i=0;i<extracted;i++)
+    	tmpc[i]=tmp[i];
+    // strcpy(tmpc,tmp.c_str());
     decompressString(tmpc,extracted);
     printf("Uncompressed size is: %lu\n", strlen(c));
     printf("Uncompressed string is: %s\n", c);

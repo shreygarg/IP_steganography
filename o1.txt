@@ -1,0 +1,2 @@
+Uncompressed size is: 0
+Uncompressed string is: 

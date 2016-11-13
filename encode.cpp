@@ -130,8 +130,8 @@ int main( int argc, char** argv )
     		image.at<Vec3b>(i,j)[1]&= mask;
     		image.at<Vec3b>(i,j)[2]&= mask;
     	}
-    namedWindow( "Original Image", WINDOW_AUTOSIZE );
-    imshow( "Original Image", image );
+    // namedWindow( "Original Image", WINDOW_AUTOSIZE );
+    // imshow( "Original Image", image );
    	char a[1000000];
    	scanf("%[^\n]s",a);// = "Hello jwd wed wed we dw ed we D XEX DXW wedwed wed wedwdDX a";   
     int aa=0,bb=0,cc=0;
@@ -139,19 +139,23 @@ int main( int argc, char** argv )
 	printf("Uncompressed size is: %lu\n", strlen(a));
     // printf("Uncompressed string is: %s\n", a);
 	uInt ret= compressString(a);
-	cout<< "the ret value is "<<ret<<endl;
 	uInt compressedLength = strlen(b);
-	printf("Compressed size is: %lu\n", strlen(b));
-    printf("Compressed string is: %s\n", b);
+	// for(int i=0;i<strlen(b);i++)
+	// {
+	// 	cout<<b[i]<<"->"<<(int)b[i]<<endl;
+	// }
+	printf("Compressed size is: %u\n", ret);
+    // printf("Compressed string is: %s\n", b);
     if((compressedLength+1+3)> noofchars)
     {
     	printf("Given image is too small to encode the given amount of data\n");
     	return 0;
     }
-    // double perc = strlen(a)-str(len
-    // printf("")
-    encode(string(b),image,aa,bb,cc,ret,false);
-    namedWindow( "Encoded Image", WINDOW_AUTOSIZE );
-    imshow( "Encoded Image", image );
+    string tobeencoded = "";
+    for(int i=0;i<ret;i++)
+    	tobeencoded+= b[i];
+    encode(tobeencoded,image,aa,bb,cc,ret,false);
+    // namedWindow( "Encoded Image", WINDOW_AUTOSIZE );
+    // imshow( "Encoded Image", image );
     imwrite("encoded.png",image);
 }
